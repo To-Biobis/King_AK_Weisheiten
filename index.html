@@ -98,6 +98,33 @@
       font-size: 0.85rem;
       opacity: 0.6;
     }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #222;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .social:hover {
+      transform: translateY(-2px);
+      background: #ffcc00;
+      color: #000;
+    }
   </style>
 </head>
 <body>
@@ -116,7 +143,7 @@
       <div class="name">King_Ak</div>
       <div class="tag">Weisheiten · Mindset · Chaos</div>
 
-      <div class="quote">„Ich hab die Bälle … die Schleim-Bälle.“</div>
+      <div class="quote">„Ich hab die Bälle … die Schleim‑Bälle.“</div>
       <div class="quote">„We need a server where everybody swetts!“</div>
 
       <div class="stats">
@@ -134,7 +161,24 @@
         </div>
       </div>
 
-      <div class="footer">Peak-Profil · King_Ak</div>
+      <div class="socials">
+        <div class="social">Discord · ID: 1294612909288198144</div>
+        <a class="social" href="https://www.youtube.com/@King.Ak_YT-Minecraft" target="_blank">YouTube · King_Ak</a>
+        <a class="social" href="https://www.tiktok.com/@suibk3" target="_blank">TikTok · @suibk3</a>
+      </div>
+
+      <div class="footer">Peak‑Profil · King_Ak</div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Aura</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Mindset</div>
+        </div>
+      </div>
+
+      <div class="footer">Peak‑Profil · King_Ak</div>
     </div>
   </div>
 </body>
