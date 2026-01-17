@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>King_Ak – Profil</title>
+  <title>King_Ak – Live Profil</title>
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -93,12 +92,6 @@
       opacity: 0.8;
     }
 
-    .footer {
-      margin-top: 25px;
-      font-size: 0.85rem;
-      opacity: 0.6;
-    }
-
     .socials {
       display: flex;
       flex-direction: column;
@@ -110,65 +103,91 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
       padding: 12px;
       border-radius: 12px;
       background: #222;
       font-weight: 700;
-      text-decoration: none;
-      color: #fff;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .social:hover {
-      transform: translateY(-2px);
-      background: #ffcc00;
-      color: #000;
     }
   </style>
 </head>
+
 <body>
   <div class="profile-card">
     <div class="banner"></div>
 
     <div class="avatar-wrapper">
-      <img
-        class="avatar"
-        src="https://render.crafty.gg/3d/bust/b423ccf3-d2d7-4b5d-b734-8c30511f29fa"
-        alt="King_Ak Avatar"
-      />
+      <img id="avatar" class="avatar" />
     </div>
 
     <div class="content">
-      <div class="name">King_Ak</div>
+      <div id="name" class="name">King_Ak</div>
       <div class="tag">Weisheiten · Mindset · Chaos</div>
 
-      <div class="quote">„Ich hab die Bälle … die Schleim‑Bälle.“</div>
+      <!-- Deine Quotes bleiben -->
+      <div class="quote">„Ich hab die Bälle … die Schleim-Bälle.“</div>
       <div class="quote">„We need a server where everybody swetts!“</div>
-      <div class="quote">„Ich weiß nicht was du Kochst, aber du Kochst“</div>
+      <div class="quote">„Ich weiß nicht was du kochst, aber du kochst.“</div>
 
+      <!-- Kombi aus Fun + echten Daten -->
       <div class="stats">
         <div class="stat">
-          <div class="stat-number">∞</div>
-          <div class="stat-label">Confidence</div>
+          <div id="region" class="stat-number">∞</div>
+          <div class="stat-label">Region</div>
         </div>
         <div class="stat">
-          <div class="stat-number">1000%</div>
-          <div class="stat-label">Aura</div>
+          <div id="points" class="stat-number">1000%</div>
+          <div class="stat-label">Points</div>
         </div>
         <div class="stat">
-          <div class="stat-number">24/7</div>
-          <div class="stat-label">Mindset</div>
+          <div id="overall" class="stat-number">24/7</div>
+          <div class="stat-label">Overall</div>
         </div>
       </div>
 
+      <!-- Live Rankings -->
+      <div id="rankings" class="socials"></div>
+
+      <!-- Deine Socials bleiben -->
       <div class="socials">
         <div class="social">Discord · ID: 1294612909288198144</div>
         <a class="social" href="https://www.youtube.com/@King.Ak_YT-Minecraft" target="_blank">YouTube · King_Ak</a>
         <a class="social" href="https://www.tiktok.com/@suibk3" target="_blank">TikTok · @suibk3</a>
       </div>
-
     </div>
   </div>
+
+  <script>
+    const API = "https://mctiers.com/api/v2";
+    const USERNAME = "KingAK_YT";
+
+    async function loadLiveData() {
+      try {
+        const res = await fetch(`${API}/profile/by-name/${USERNAME}`);
+        const data = await res.json();
+
+        document.getElementById("name").textContent = data.name;
+        document.getElementById("region").textContent = data.region ?? "??";
+        document.getElementById("points").textContent = data.points ?? 0;
+        document.getElementById("overall").textContent = "#" + (data.overall ?? "–");
+
+        document.getElementById("avatar").src =
+          `https://render.crafty.gg/3d/bust/${data.uuid}`;
+
+        const rankings = document.getElementById("rankings");
+        rankings.innerHTML = "";
+
+        Object.entries(data.rankings || {}).forEach(([mode, r]) => {
+          const el = document.createElement("div");
+          el.className = "social";
+          el.textContent = `${mode.toUpperCase()} → Tier ${r.tier} ${r.pos === 0 ? "High" : "Low"}`;
+          rankings.appendChild(el);
+        });
+      } catch {
+        console.warn("MCTiers API nicht erreichbar");
+      }
+    }
+
+    loadLiveData();
+  </script>
 </body>
 </html>
